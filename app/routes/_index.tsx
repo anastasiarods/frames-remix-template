@@ -1,9 +1,32 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
+import { MetaFunction } from "@remix-run/cloudflare";
+import { Frame } from "frames.js";
+import { HOST_URL } from "~/lib/constants";
+import { getFrameMetadata } from "~/lib/utils";
+
+const initialFrame: Frame = {
+  image: "https://picsum.photos/seed/frames.js/1146/600",
+  version: "vNext",
+  buttons: [
+    {
+      label: "Random image",
+      action: "post",
+    },
+  ],
+  postUrl: `${HOST_URL}/api/frames`,
+};
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Very cool app | Remix" },
+    {
+      property: "og:title",
+      content: "Very cool app",
+    },
+    {
+      name: "description",
+      content: "This app is the best",
+    },
+    ...getFrameMetadata(initialFrame),
   ];
 };
 
@@ -11,31 +34,6 @@ export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
     </div>
   );
 }

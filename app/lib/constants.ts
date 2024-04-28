@@ -1,0 +1,1 @@
+export const HOST_URL = "https://frames-remix-template.pages.dev";
